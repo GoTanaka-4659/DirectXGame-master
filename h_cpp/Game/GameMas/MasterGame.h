@@ -22,6 +22,9 @@ private://エイリアス
 private:
 	std::vector<Sprite *>sprites;
 	PostEffect *postEffect = nullptr;
+
+	Sprite *title = nullptr;
+	Sprite *end = nullptr;
 	
 	float x = 0, y = 0.5, z = 1;
 	bool jumping=false;

@@ -23,6 +23,7 @@ protected:
 	Input *input = nullptr;
 	DirectXCommon *dxCommon = nullptr;
 	SpriteCommon *spriteCommon = nullptr;
+	SpriteCommon *titleSpriteCommon = nullptr;
 	Audio *audio = nullptr;
 	DebugText *debugText = nullptr;
 

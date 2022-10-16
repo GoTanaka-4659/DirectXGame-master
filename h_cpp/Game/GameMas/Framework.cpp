@@ -30,6 +30,11 @@ void Framework::Initilize()
 	// デバッグテキスト初期化
 	debugText->Initialize(spriteCommon, debugTextTexNumber);
 
+
+	titleSpriteCommon = new SpriteCommon();
+	titleSpriteCommon->Initilize(dxCommon->GetDev(), dxCommon->GetCmdList(), winApp->Window_width, winApp->Window_height);
+
+
 	//オーディオの初期化
 	audio = new Audio();
 	audio->Initilize();
@@ -37,7 +42,7 @@ void Framework::Initilize()
 	audio->LoadWave("Resources/BGM_SE/Alarm01.wav");
 	// 音声再生
 	//audio->PlayWave("Resources/Alarm01.wav");
-	
+
 
 	//FBX
 	FbxLoader::GetInstance()->Initilize(dxCommon->GetDev());
@@ -88,7 +93,7 @@ void Framework::Initilize()
 	Player->SetPosition({ 0,0.5,1 });
 	Player->SetScale({ 0.01,0.01,0.01 });
 
-
+	//Imgui
 	imguiManager = new ImguiManager(winApp->GetHwnd(), dxCommon->GetCmdList(), dxCommon->GetDev());
 
 }
@@ -103,7 +108,8 @@ void Framework::Finalize()
 	delete debugText;
 	//スプライトクラス解放
 	delete spriteCommon;
-
+	delete titleSpriteCommon;
+	//Imguiクラス解放
 	delete imguiManager;
 	//オーディオクラス開放
 	audio->Finalize();
@@ -140,7 +146,6 @@ void Framework::Update()
 	//カメラセット
 	Player->SetCamera(camera);
 	//fbxobj->SetCamera(camera);
-
 	//3dオブジェクト更新
 	object3d->Update();
 	object3d_2->Update();
@@ -150,6 +155,10 @@ void Framework::Update()
 	//Fbx
 	fbxobj->Update();
 
+	//Escを押したら終了
+	if (input->PushKey(DIK_ESCAPE)) {
+		endFlag = true;
+	}
 }
 
 void Framework::Run()
@@ -159,7 +168,7 @@ void Framework::Run()
 	while (true)  // ゲームループ
 	{
 		Update();
-		if (endFlag) {
+		if (endFlag == true) {
 			break;
 		}
 		Draw();

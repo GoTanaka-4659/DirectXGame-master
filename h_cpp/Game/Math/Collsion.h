@@ -55,8 +55,24 @@ public:
 	/// <returns>åç∑ÇµÇƒÇ¢ÇÈÇ©î€Ç©</returns>
 	static bool CheckRay2Triangle(const Ray& ray, const Triangle& triangle, float* distance = nullptr, DirectX::XMVECTOR* inter = nullptr);
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="ray"></param>
+	/// <param name="sphere"></param>
+	/// <param name="distance"></param>
+	/// <param name="inter"></param>
+	/// <returns></returns>
 	static bool CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* distance = nullptr,DirectX::XMVECTOR * inter = nullptr);
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="sphere"></param>
+	/// <param name="Sphere2"></param>
+	/// <param name="r"></param>
+	/// <param name="r2"></param>
+	/// <returns></returns>
 	static bool CheckSphere2(Sphere sphere, Sphere Sphere2, float r, float r2);
 
 };
