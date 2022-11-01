@@ -8,7 +8,7 @@ void MasterGame::Initilize()
 	// スプライト共通テクスチャ読み込み
 	spriteCommon->LoadTexture(0, L"Resources/Gorushi.png");
 	spriteCommon->LoadTexture(1, L"Resources/Gorushi.png");
-	
+
 	spriteCommon->LoadTexture(100, L"Resources/white1x1.png");
 	postEffect = new PostEffect();
 	postEffect->Initialize(dxCommon->GetDev());
@@ -16,7 +16,7 @@ void MasterGame::Initilize()
 	// スプライトの生成
 	for (int i = 0; i < 1; i++)
 	{
-		int texNumber = rand() %2;
+		int texNumber = rand() % 2;
 		Sprite *sprite = Sprite::Create(spriteCommon, 100, { 0,0 }, false, false);
 
 		// スプライトの座標変更
@@ -40,6 +40,12 @@ void MasterGame::Initilize()
 	title->SetPosition({ 000,000,0 });
 	// 頂点バッファに反映
 	title->TransferVertexBuffer();
+	//エンド画像
+	end = Sprite::Create(titleSpriteCommon, 1, { 0,0 }, false, false);
+	end->SetSize({ (float)1400 ,(float)1400 });
+	end->SetPosition({ 000,000,0 });
+	// 頂点バッファに反映
+	end->TransferVertexBuffer();
 
 
 	int counter = 0; // アニメーションの経過時間カウンター
@@ -73,6 +79,7 @@ void MasterGame::Update()
 		object3d_2->Update();
 		object3d_3->Update();
 		Player->Update();
+		Mob->Update();
 		for (auto &sprite : sprites) {
 			sprite->Update();
 		}
@@ -117,9 +124,29 @@ void MasterGame::Update()
 			y = -0.25;
 		}
 		Player->SetPosition({ x,y,z });
+
+		if (mobx < x) {
+			mobx += 0.003;
+		}
+		else if (mobx > x) {
+			mobx -= 0.003;
+
+		}
+
+		Mob->SetPosition({ mobx,moby,mobz });
+
+		if (Player->GetPosition().x > 0.85) {
+			Scene = 2;
+		}
+	}
+	else if (Scene == 2)
+	{
+		if (input->PushKey(DIK_ESCAPE)) {
+			endFlag = true;
+		}
 	}
 	else {
-		
+
 	}
 
 	// DirectX毎フレーム処理　ここまで
@@ -129,7 +156,7 @@ void MasterGame::Update()
 void MasterGame::Draw()
 {
 
-	postEffect->PreDrawScene(dxCommon->GetCmdList(),dxCommon->GetDev());
+	postEffect->PreDrawScene(dxCommon->GetCmdList(), dxCommon->GetDev());
 
 	dxCommon->GetCmdList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	//dxCommon->GetCmdList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -151,14 +178,9 @@ void MasterGame::Draw()
 
 	// 描画コマンドここまで
 	postEffect->PostDrawScene(dxCommon->GetCmdList());
-	
+
 	dxCommon->PreDraw();
-	
-	titleSpriteCommon->PreDraw();
-	//タイトル
-	if (Scene == 0) {
-		title->Draw();
-	}
+
 
 
 	//3dオブジェクト描画前処理
@@ -168,15 +190,27 @@ void MasterGame::Draw()
 	object3d_2->Draw();
 	object3d_3->Draw();
 	Player->Draw();
+
+	Mob->Draw();
 	//3dオブジェクト描画後処理
 	Object3d::PostDraw();
 
-	postEffect->Draw(dxCommon->GetCmdList(),dxCommon->GetDev());
+	//画像
+	titleSpriteCommon->PreDraw();
+	//タイトル
+	if (Scene == 0) {
+		title->Draw();
+	}
+	else if (Scene == 2) {
+		end->Draw();
+	}
+
+	postEffect->Draw(dxCommon->GetCmdList(), dxCommon->GetDev());
 
 	imguiManager->Draw();
 
 	dxCommon->PostDraw();
-	
+
 }
 
 void MasterGame::Finalize()
@@ -188,6 +222,7 @@ void MasterGame::Finalize()
 	sprites.clear();
 
 	delete title;
+	delete end;
 	delete postEffect;
 
 	//3Dオブジェクト解放
@@ -195,6 +230,8 @@ void MasterGame::Finalize()
 	delete object3d_2;
 	delete object3d_3;
 	delete Player;
+
+	delete Mob;
 	//3Dモデルを解放
 	delete model;
 	delete modelPlayer;

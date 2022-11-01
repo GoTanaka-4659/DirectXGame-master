@@ -27,6 +27,7 @@ private:
 	Sprite *end = nullptr;
 	
 	float x = 0, y = 0.5, z = 1;
+	float mobx = 0.85, moby = 0.005, mobz = 1;
 	bool jumping=false;
 	float jump=0;
 

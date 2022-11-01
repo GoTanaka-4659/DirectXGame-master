@@ -35,6 +35,8 @@ protected:
 	Model *modelPlayer = nullptr;
 	Object3d *Player = nullptr;
 
+	Object3d *Mob = nullptr;
+
 	FBXModel *fbxmodel = nullptr;
 	Fbx_Obj3d *fbxobj = nullptr;
 

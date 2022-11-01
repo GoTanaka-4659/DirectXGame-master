@@ -5,6 +5,10 @@
 #include <sstream>
 #include <iostream>
 
+#include <vector>
+#include <cassert>
+#include <DirectXMath.h>
+
 class LoadCSV
 {
 	std::string str_buf;
@@ -12,9 +16,12 @@ class LoadCSV
 	std::string input_csv_file_path;
 	std::string output_csv_file_path;
 
-	
-	LoadCSV();
 	void ReadCSV(std::string filename);
+	
+	void Output();
+	void Input();
+
+	LoadCSV();
 	void Update();
 };
 
