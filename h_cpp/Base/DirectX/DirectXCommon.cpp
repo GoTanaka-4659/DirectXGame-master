@@ -205,6 +205,37 @@ void DirectXCommon::InitilizeFence()
 
 }
 
+void DirectXCommon::InitializeFixFPS()
+{
+	//現在時間を記録する
+	reference_ = std::chrono::steady_clock::now();
+}
+
+void DirectXCommon::UpdataFixFPS()
+{
+	//1/60秒ぴったりの秒数
+	const std::chrono::microseconds kMinTime(uint64_t(1000000.0 / 120.0f));
+	//1/60秒よりわずかに短い時間
+	const std::chrono::microseconds kMinCheckTime(uint16_t(1000000.0 / 125.0f));
+
+	//現在時間を取得する
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	//前科記録からの経過時間を取得する
+	std::chrono::microseconds elapsed =
+		std::chrono::duration_cast<std::chrono::microseconds>(now - reference_);
+
+	//1/60(よりわずかに短い時間)経っていない場合
+	if (elapsed < kMinTime) {
+		//1/60秒経過するまで微小なスリープを繰り返す
+		while (std::chrono::steady_clock::now() - reference_ < kMinTime) {
+			//1マイクロ秒スリープ
+			std::this_thread::sleep_for(std::chrono::microseconds(1));
+		}
+	}
+	//現在の時間を記録する
+	reference_ = std::chrono::steady_clock::now();
+}
+
 void DirectXCommon::PreDraw()
 {
 	// バックバッファの番号を取得（2つなので0番か1番）
@@ -259,6 +290,9 @@ void DirectXCommon::PostDraw()
 		CloseHandle(event);
 	}
 
+	//FPS固定
+	UpdataFixFPS();
+
 	cmdAllocator->Reset(); // キューをクリア
 	cmdList->Reset(cmdAllocator.Get(), nullptr);  // 再びコマンドリストを貯める準備
 
@@ -270,6 +304,8 @@ void DirectXCommon::Initialize(WinApp *winApp)
 	assert(winApp);
 	this->winApp = winApp;
 
+	//FPS固定化初期化
+	InitializeFixFPS();
 	//デバイスの初期化
 	 InitilizeDevice();
 	//コマンド関連の初期化

@@ -98,8 +98,6 @@ void Framework::Initilize()
 	Mob->SetPosition({ 0,0.5,1 });
 	Mob->SetScale({ 0.01,0.01,0.01 });
 
-	
-
 	//Imgui
 	imguiManager = new ImguiManager(winApp->GetHwnd(), dxCommon->GetCmdList(), dxCommon->GetDev());
 
@@ -145,22 +143,6 @@ void Framework::Update()
 	}
 	//入力更新
 	input->Update();
-
-	//カメラ
-	/*camera->SetEye({ 0, 60, 0 });
-	camera->SetTarget(object3d->GetPosition());*/
-	camera->Update();
-	//カメラセット
-	Player->SetCamera(camera);
-	//fbxobj->SetCamera(camera);
-	//3dオブジェクト更新
-	object3d->Update();
-	object3d_2->Update();
-	object3d_3->Update();
-	Player->Update();
-	Mob->Update();
-	//Fbx
-	fbxobj->Update();
 
 	//Escを押したら終了
 	if (input->PushKey(DIK_ESCAPE)) {

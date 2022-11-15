@@ -74,12 +74,23 @@ void MasterGame::Update()
 	{
 
 		// DirectX毎フレーム処理　ここから
+		//カメラ
+		/*camera->SetEye({ 0, 60, 0 });
+		camera->SetTarget(object3d->GetPosition());*/
+		camera->Update();
+		//カメラセット
+		Player->SetCamera(camera);
+		//fbxobj->SetCamera(camera);
+
+
 		//3dオブジェクト更新
 		object3d->Update();
 		object3d_2->Update();
 		object3d_3->Update();
 		Player->Update();
 		Mob->Update();
+		//Fbx
+		fbxobj->Update();
 		for (auto &sprite : sprites) {
 			sprite->Update();
 		}

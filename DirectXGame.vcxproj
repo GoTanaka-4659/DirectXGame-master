@@ -149,7 +149,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\OneDrive\デスクトップ\DirectXGame-master\xDirectXGame-master\h_cpp\Base\CSV\Loadtxt.cpp" />
-    <ClCompile Include="..\..\OneDrive\デスクトップ\DirectXGame-master\xDirectXGame-master\h_cpp\Game\MapChip\MapData.cpp" />
     <ClCompile Include="h_cpp\Base\CSV\LoadCSV.cpp" />
     <ClCompile Include="h_cpp\Base\DirectX\DirectXCommon.cpp" />
     <ClCompile Include="h_cpp\Base\Input\Input.cpp" />
@@ -168,6 +167,7 @@
     <ClCompile Include="h_cpp\Game\GameMas\MasterGame.cpp" />
     <ClCompile Include="h_cpp\Game\ImguiManager\ImguiManager.cpp" />
     <ClCompile Include="h_cpp\Game\MapChip\MapChip.cpp" />
+    <ClCompile Include="h_cpp\Game\MapChip\MapData.cpp" />
     <ClCompile Include="h_cpp\Game\Math\CollisionPrimitive.cpp" />
     <ClCompile Include="h_cpp\Game\Math\Collsion.cpp" />
     <ClCompile Include="h_cpp\Game\Math\Ease.cpp" />
@@ -184,7 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\OneDrive\デスクトップ\DirectXGame-master\xDirectXGame-master\h_cpp\Base\CSV\Loadtxt.h" />
-    <ClInclude Include="..\..\OneDrive\デスクトップ\DirectXGame-master\xDirectXGame-master\h_cpp\Game\MapChip\MapData.h" />
     <ClInclude Include="h_cpp\Base\CSV\LoadCSV.h" />
     <ClInclude Include="h_cpp\Base\DirectX\DirectXCommon.h" />
     <ClInclude Include="h_cpp\Base\Input\Input.h" />
@@ -204,6 +203,7 @@
     <ClInclude Include="h_cpp\Game\GameMas\MasterGame.h" />
     <ClInclude Include="h_cpp\Game\ImguiManager\ImguiManager.h" />
     <ClInclude Include="h_cpp\Game\MapChip\MapChip.h" />
+    <ClInclude Include="h_cpp\Game\MapChip\MapData.h" />
     <ClInclude Include="h_cpp\Game\Math\CollisionPrimitive.h" />
     <ClInclude Include="h_cpp\Game\Math\Collsion.h" />
     <ClInclude Include="h_cpp\Game\Math\Ease.h" />
